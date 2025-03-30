@@ -1,3 +1,5 @@
+import 'dotenv/config'
+
 const NODE_ENV = process.env.NODE_ENV || 'production'; // Default to 'production' if missing
 
 const notFoundHandler = (req, res, next) => {

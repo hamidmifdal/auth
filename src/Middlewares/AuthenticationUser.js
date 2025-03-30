@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-
+import 'dotenv/config'
 export default function Auth(req, res, next){
 
     const JWT_SECURE = process.env.JWT_SECURE

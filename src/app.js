@@ -6,6 +6,7 @@ import helmet from 'helmet'
 import notFoundHandler from './utils/notFoundHandler.js'
 import errorHandler from './utils/errorHandler.js'
 import cookieParser from 'cookie-parser'
+import 'dotenv/config'
 
 const COOKIE_SECRET = process.env.COOKIE_SECRET
 const check = {

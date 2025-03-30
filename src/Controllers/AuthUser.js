@@ -3,6 +3,8 @@ import Userdb from '../models/User.js'
 import bcrypt from 'bcrypt';
 import {z} from 'zod'
 import jwt from 'jsonwebtoken';
+import 'dotenv/config'
+
 const JWT_SECURE = process.env.JWT_SECURE
 const NODE_ENV   = process.env.NODE_ENV
 

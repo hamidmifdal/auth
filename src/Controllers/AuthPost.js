@@ -1,6 +1,7 @@
 import { isValidObjectId } from 'mongoose'
 import { PostSchimaCreate } from '../utils/VerifyShemaUser.js'
 import Post from '../models/Post.js'
+import 'dotenv/config'
 
 export async function PostCreate(req, res) {
     try {

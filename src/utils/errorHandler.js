@@ -1,3 +1,5 @@
+import 'dotenv/config'
+
 const errorHandler = (err, req, res, next) => {
   // 1. First check if response object exists and is valid
   if (!res || typeof res.status !== 'function') {
