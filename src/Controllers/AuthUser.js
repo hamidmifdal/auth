@@ -3,7 +3,6 @@ import Userdb from '../models/User.js'
 import bcrypt from 'bcrypt';
 import {z} from 'zod'
 import jwt from 'jsonwebtoken';
-import 'dotenv/config'
 
 const JWT_SECURE = process.env.JWT_SECURE
 const NODE_ENV   = process.env.NODE_ENV
@@ -76,6 +75,14 @@ export async function Profile(req,res) {
     try {
         const user = req.user.user
         return res.status(200).json({ message:`user: ${user}` })
+    } catch (error) {
+        return res.status(401).json({message:`error: ${error}`})
+    }
+}
+export async function getUser(req,res) {
+    try {
+        const user = await Userdb.find()
+        return res.status(200).json([{user}])
     } catch (error) {
         return res.status(401).json({message:`error: ${error}`})
     }

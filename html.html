@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        #preview {
+            margin-top: 10px;
+            max-width: 100%;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Upload an Image</h2>
+    <input type="file" id="fileInput" accept="image/*">
+    <button onclick="uploadImage()">Upload</button>
+    <p id="status"></p>
+    <img id="preview" alt="Uploaded Image Preview">
+
+    <script>
+        function uploadImage() {
+            const fileInput = document.getElementById("fileInput");
+            const status = document.getElementById("status");
+            const preview = document.getElementById("preview");
+
+            if (!fileInput.files.length) {
+                status.textContent = "Please select an image!";
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append("file", file);
+
+            fetch("http://localhost:3000/api/auth/post/image", { // Update URL if needed
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.file) {
+                    status.textContent = "Upload successful!";
+                    preview.src = `http://localhost:3000/api/auth/post/image/${data.file.filename}`; // Adjust path
+                    preview.style.display = "block";
+                } else {
+                    status.textContent = "Upload failed: " + data.message;
+                }
+            })
+            .catch(error => {
+                status.textContent = "Error uploading image: " + error.message;
+            });
+        }
+    </script>
+</body>
+</html>
