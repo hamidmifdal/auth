@@ -7,7 +7,7 @@ const router = Router()
 //methods POST
 router.post('/', Auth, AuthPost.PostCreate)
 
-router.post('/image', upload.single("file") , uploadPhoto)
+router.post('/image', Auth, upload.single("file") , uploadPhoto)
 
 router.delete('/:id',Auth, AuthPost.DeletePost)
 router.put('/:id', AuthPost.EditePost)

@@ -9,7 +9,10 @@ cloud.config({
 
 export async function CloudinaryUploadPhoto(item) {
     try {
-        const data = await cloud.uploader.upload(item,{resource_type:"auto"});
+        const data = await cloud.uploader.upload(item,{
+            resource_type:"auto",
+            // folder: "otako"
+        });
         return data;
     } catch (error) {
         console.log(`Error: ${error}`)

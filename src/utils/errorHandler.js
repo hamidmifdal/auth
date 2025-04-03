@@ -3,13 +3,13 @@
 const errorHandler = (err, req, res, next) => {
   // 1. First check if response object exists and is valid
   if (!res || typeof res.status !== 'function') {
-      console.error('Invalid response object in error handler:', err);
+    //   console.error('Invalid response object in error handler:', err);
       return next(err);
   }
 
   // 2. Check if headers have already been sent
   if (res.headersSent) {
-      console.error('Headers already sent when error occurred:', err);
+    //   console.error('Headers already sent when error occurred:', err);
       return next(err);
   }
 
@@ -42,7 +42,7 @@ const errorHandler = (err, req, res, next) => {
       // 8. Send response
       res.status(statusCode).json(errorResponse);
   } catch (responseError) {
-      console.error('Failed to send error response:', responseError);
+    //   console.error('Failed to send error response:', responseError);
       // Last resort if even the error response fails
       res.status(500).end();
   }

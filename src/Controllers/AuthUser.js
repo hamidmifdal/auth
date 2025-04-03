@@ -26,7 +26,7 @@ export async function Signup(req, res) {
         if (error instanceof z.ZodError) {
             return res.status(422).json({ 
                 message: `Validation error`,
-                errors: error.errors.map(err => err.path[0])
+                errors: error.errors.map(err => `${err.message}`)
             });
         }
         return res.status(500).json({
@@ -41,10 +41,10 @@ export async function Signin(req, res) {
         const validatedData = verifySchema.UserSchimaSignin.parse(req.body)
         const {username, password} = validatedData
         const validatedUser = await Userdb.findOne({username})
-        const compasePassword = await bcrypt.compare(password, validatedUser.password)
-        if(!validatedUser){
+        if(!validatedUser || !validatedUser === ""){
             return res.status(422).json({message:"username or password is coreect"})
         }
+        const compasePassword = await bcrypt.compare(password, validatedUser.password)
         if(!compasePassword){
             return res.status(422).json({message:"username or password is coreect"})
         }
@@ -61,13 +61,13 @@ export async function Signin(req, res) {
             );
             return res.status(422).json({ 
                 message: `Validation error`,
-                // errors: error.errors.map(err => err.path[0]
+                // errors: error.errors.map(err => err.path[0]),
                 error: errorMessages.join(', ')
                 // errors: error.errors.map(err => `${err.path.join('.')}: ${err.message}`
 
                 });// this=> )
         }
-        return res.status(422).json(NODE_ENV === "production" ? {message:`error: ${error}`} : {message: "error db"})
+        return res.status(422).json({message:`error: ${error}`})
     }
 }
 

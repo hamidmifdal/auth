@@ -6,7 +6,7 @@ import fs from "fs";
 import User from "../models/User.js";
 import { isValidObjectId } from "mongoose";
 
-const __user__ = "67dde04195ad4a28af06a045" // Should probably come from request (req.user._id)
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -23,6 +23,7 @@ const storage = multer.diskStorage({
 export const upload = multer({ storage });
 
 export const uploadPhoto = async (req, res) => {
+    const __user__ = req.user.id
     try {
         if(!isValidObjectId(__user__)) {
             return res.status(400).json({message:"Invalid user ID"});
